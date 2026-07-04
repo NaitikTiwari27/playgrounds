@@ -1,0 +1,10 @@
+<html>
+<body>
+ 
+ <p> Now lets see some colors!! </p>
+
+<p style="color:red;">This is Red colour</p>
+<p style="color:blue;">I am blue</p>
+
+</body>
+</html>
