@@ -1,0 +1,120 @@
+import mysql.connector
+
+conn = mysql.connector.connect(
+    host="127.0.0.1",
+    user="root",
+    password="27@Naitik",
+    database="company"
+)
+cursor = conn.cursor()
+
+def show_all():
+    cursor.execute("SELECT * FROM emp")
+    rows = cursor.fetchall()
+
+    print("\nEMPLOYEE LIST")
+    print("EMPNO\tNAME\tDEPT\tSALARY")
+    print("-" * 40)
+
+    for row in rows:
+        print(row[0], "\t", row[1], "\t", row[2], "\t", row[3])
+
+    print(f"\nTOTAL RECORDS: {len(rows)}\n")
+
+
+def add_employee():
+    eno = int(input("Enter Employee Number: "))
+    name = input("Enter Name: ")
+    dept = input("Enter Department: ")
+    salary = int(input("Enter Salary: "))
+
+    cursor.execute(
+        f"INSERT INTO emp VALUES ({eno}, '{name}', '{dept}', {salary})"
+    )
+    conn.commit()
+    print("Employee added successfully!\n")
+
+
+def search_employee():
+    eno = int(input("Enter Employee Number to Search: "))
+
+    cursor.execute(f"SELECT * FROM emp WHERE empno={eno}")
+    row = cursor.fetchone()
+
+    if row:
+        print("\nEMPNO\tNAME\tDEPT\tSALARY")
+        print("-" * 40)
+        print(row[0], "\t", row[1], "\t", row[2], "\t", row[3], "\n")
+    else:
+        print("No employee found!\n")
+
+
+def edit_employee():
+    eno = int(input("Enter Employee Number to Edit: "))
+
+    cursor.execute(f"SELECT * FROM emp WHERE empno={eno}")
+    row = cursor.fetchone()
+
+    if row:
+        print(f"Current Dept: {row[2]}, Salary: {row[3]}")
+
+        dept = input("Enter new Department: ")
+        salary = int(input("Enter new Salary: "))
+
+        cursor.execute(
+            f"UPDATE emp SET dept='{dept}', salary={salary} WHERE empno={eno}"
+        )
+        conn.commit()
+        print("Employee updated successfully!\n")
+    else:
+        print("No employee found!\n")
+
+
+def delete_employee():
+    eno = int(input("Enter Employee Number to Delete: "))
+
+    cursor.execute(f"SELECT * FROM emp WHERE empno={eno}")
+    row = cursor.fetchone()
+
+    if row:
+        confirm = input("Are you sure to delete? (y/n): ")
+
+        if confirm.lower() == "y":
+            cursor.execute(f"DELETE FROM emp WHERE empno={eno}")
+            conn.commit()
+            print("Employee deleted successfully!\n")
+    else:
+        print("No employee found!\n")
+
+
+while True:
+    print("1. Show Employees")
+    print("2. Add Employee")
+    print("3. Search Employee")
+    print("4. Edit Employee")
+    print("5. Delete Employee")
+    print("6. Contact Us")
+    print("0. Exit")
+
+    choice = int(input("Enter your choice: "))
+
+    if choice == 1:
+        show_all()
+    elif choice == 2:
+        add_employee()
+    elif choice == 3:
+        search_employee()
+    elif choice == 4:
+        edit_employee()
+    elif choice == 5:
+        delete_employee()
+    elif choice == 6:
+        print("\nContact Info:")
+        print("Name: Naitik Tiwari")
+        print("Email: naitik.tiwari1127@gmail.com\n")
+    elif choice == 0:
+        print("Bye!")
+        conn.close()
+        break
+    else:
+        print("Please enter a valid choice!\n")

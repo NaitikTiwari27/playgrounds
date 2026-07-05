@@ -1,0 +1,88 @@
+from fpdf import FPDF
+
+print("=" * 40)
+print("        INVOICE GENERATOR")
+print("=" * 40)
+
+customer = input("Customer name: ")
+itemnumber = int(input("Number of items: "))
+items = []
+subtotal = 0
+
+for i in range(itemnumber):
+    item = input("Item name: ")
+    price = float(input("Price: "))
+    qty = int(input("Quantity: "))
+
+    total = price * qty
+    subtotal += total
+    items.append([item, price, qty, total])
+
+print("\nItem:          Price          Qty         Total")
+print("-----------------------------------------------")
+
+for item, price, qty, total in items:
+    print(f"{item:<15} {price:<14.2f} {qty:<10} {total:.2f}")
+
+tax = subtotal * 0.10
+grand_total = subtotal + tax
+
+print("\nSubtotal:", f"{subtotal:.2f}")
+print("Tax (10%):", f"{tax:.2f}")
+print("Total:", f"{grand_total:.2f}")
+
+# Save as TXT
+with open("invoice.txt", "w") as file:
+    file.write("INVOICE GENERATOR\n")
+    file.write(f"Customer name: {customer}\n\n")
+    file.write("Item\tPrice\tQty\tTotal\n")
+
+    for item, price, qty, total in items:
+        file.write(f"{item}\t{price:.2f}\t{qty}\t{total:.2f}\n")
+
+    file.write(f"\nSubtotal: {subtotal:.2f}\n")
+    file.write(f"Tax (10%): {tax:.2f}\n")
+    file.write(f"Total: {grand_total:.2f}\n")
+
+print("\nInvoice saved as invoice.txt")
+
+# Save as PDF
+pdf = FPDF()
+pdf.add_page()
+
+pdf.set_font("Arial", "B", 16)
+pdf.cell(190, 10, "INVOICE GENERATOR", ln=True, align="C")
+
+# Customer name
+pdf.ln(5)
+pdf.set_font("Arial", "", 12)
+pdf.cell(190, 10, f"Customer name: {customer}", ln=True)
+
+pdf.ln(5)
+
+# Table header
+pdf.set_font("Arial", "B", 12)
+pdf.cell(60, 10, "Item", 1)
+pdf.cell(40, 10, "Price", 1)
+pdf.cell(30, 10, "Qty", 1)
+pdf.cell(40, 10, "Total", 1)
+pdf.ln()
+
+# Table rows
+pdf.set_font("Arial", "", 12)
+
+for item, price, qty, total in items:
+    pdf.cell(60, 10, item, 1)
+    pdf.cell(40, 10, f"{price:.2f}", 1)
+    pdf.cell(30, 10, str(qty), 1)
+    pdf.cell(40, 10, f"{total:.2f}", 1)
+    pdf.ln()
+
+pdf.ln(5)
+pdf.set_font("Arial", "B", 12)
+pdf.cell(190, 10, f"Subtotal: {subtotal:.2f}", ln=True)
+pdf.cell(190, 10, f"Tax (10%): {tax:.2f}", ln=True)
+pdf.cell(190, 10, f"Grand Total: {grand_total:.2f}", ln=True)
+
+pdf.output("invoice.pdf")
+print("Invoice saved as invoice.pdf")

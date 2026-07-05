@@ -1,0 +1,111 @@
+import mysql.connector
+
+conn = mysql.connector.connect(
+    host="127.0.0.1",
+    user="root",
+    password="27@Naitik",
+    database="library"
+)
+cursor = conn.cursor()
+
+def show_all():
+    cursor.execute("SELECT * FROM books")
+    rows = cursor.fetchall()
+
+    print("\nBOOK LIST")
+    print("BOOK ID\tTITLE\tAUTHOR\tQUANTITY")
+    print("-" * 50)
+
+    for row in rows:
+        print(row[0], "\t", row[1], "\t", row[2], "\t", row[3])
+
+    print(f"\nTOTAL BOOKS: {len(rows)}\n")
+2
+def add_book():
+    bid = int(input("Enter Book ID: "))
+    title = input("Enter Book Title: ")
+    author = input("Enter Author Name: ")
+    quantity = int(input("Enter Quantity: "))
+
+    cursor.execute(
+        f"INSERT INTO books VALUES ({bid}, '{title}', '{author}', {quantity})"
+    )
+    conn.commit()
+    print("Book added successfully!\n")
+
+def search_book():
+    bid = int(input("Enter Book ID to Search: "))
+    cursor.execute(f"SELECT * FROM books WHERE bookid={bid}")
+    row = cursor.fetchone()
+    if row:
+        print("\nBOOK ID\tTITLE\tAUTHOR\tQUANTITY")
+        print("-" * 50)
+        print(row[0], "\t", row[1], "\t", row[2], "\t", row[3], "\n")
+    else:
+        print("Book not found!\n")
+
+def edit_book():
+    bid = int(input("Enter Book ID to Edit: "))
+    cursor.execute(f"SELECT * FROM books WHERE bookid={bid}")
+    row = cursor.fetchone()
+    if row:
+        print(f"Current Author: {row[2]}, Quantity: {row[3]}")
+
+        author = input("Enter New Author: ")
+        quantity = int(input("Enter New Quantity: "))
+
+        cursor.execute(
+            f"UPDATE books SET author='{author}', quantity={quantity} WHERE bookid={bid}"
+        )
+        conn.commit()
+        print("Book details updated successfully!\n")
+
+    else:
+        print("Book not found!\n")
+
+def delete_book():
+    bid = int(input("Enter Book ID to Delete: "))
+    cursor.execute(f"SELECT * FROM books WHERE bookid={bid}")
+    row = cursor.fetchone()
+    if row:
+        confirm = input("Are you sure to delete? (y/n): ")
+
+        if confirm.lower() == "y":
+            cursor.execute(f"DELETE FROM books WHERE bookid={bid}")
+            conn.commit()
+            print("Book deleted successfully!\n")
+    else:
+        print("Book not found!\n")
+
+
+while True:
+    print("1. Show Books")
+    print("2. Add Book")
+    print("3. Search Book")
+    print("4. Edit Book")
+    print("5. Delete Book")
+    print("6. Contact Us")
+    print("0. Exit")
+
+    choice = int(input("Enter your choice: "))
+
+    if choice == 1:
+        show_all()
+    elif choice == 2:
+        add_book()
+    elif choice == 3:
+        search_book()
+    elif choice == 4:
+        edit_book()
+    elif choice == 5:
+        delete_book()
+    elif choice == 6:
+        print("\nLibrary Contact")
+        print("Library Name: Naitik's Library")
+        print("Email: naitik.tiwari1127@gmail.com\n")
+    elif choice == 0:
+        print("Thank You!")
+        conn.close()
+        break
+    else:
+        print("Please enter a valid choice!\n")

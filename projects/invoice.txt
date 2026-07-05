@@ -1,0 +1,11 @@
+INVOICE GENERATOR
+Customer name: Gian
+
+Item	Price	Qty	Total
+bag	3.00	12	36.00
+laptop	3400.00	1	3400.00
+blazer	230.00	1	230.00
+
+Subtotal: 3666.00
+Tax (10%): 366.60
+Total: 4032.60
