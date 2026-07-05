@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <h1>Student Registration Form</h1>
+
+    <form action="/submit_registration.php" method="post">
+
+        <label for="fname">First Name:</label>
+        <input type="text" id="fname" name="firstName" placeholder="First Name">
+
+        <label for="lname">Last Name:</label>
+        <input type="text" id="lname" name="lastName" placeholder="Last Name">
+
+        <br><br>
+
+        <label for="studentId">Student ID:</label>
+        <input type="text" id="studentId" name="studentId" placeholder="Student ID">
+
+        <br><br>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" placeholder="example@email.com">
+
+        <br><br>
+
+        <label for="phone">Phone Number:</label>
+        <input type="tel" id="phone" name="phone" placeholder="eg. 9912653420">
+
+        <br><br>
+
+        <label for="dob">Date of Birth:</label>
+        <input type="date" id="dob" name="dob">
+
+        <br><br>
+
+        <h3>Select Your Gender</h3>
+        <select name="gender">
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
+        </select>
+        <br><br>
+
+         <h3>Select Your City</h3>
+
+        <select name="city">
+            <option value="delhi">Delhi</option>
+            <option value="mumbai">Mumbai</option>
+            <option value="kolkata">Kolkata</option>
+            <option value="trivandrum">Trivandrum</option>
+            <option value="bangalore">Bangalore</option>
+            <option value="chennai">Chennai</option>
+            <option value="hyderabad">Hyderabad</option>
+            <option value="pune">Pune</option>
+            <option value="nagpur">Nagpur</option>
+            <option value="ahmedabad">Ahmedabad</option>
+            <option value="jaipur">Jaipur</option>
+            <option value="amritsar">Amritsar</option>
+            <option value="lucknow">Lucknow</option>
+            <option value="chandigarh">Chandigarh</option>
+            <option value="goa">Goa</option>
+            <option value="indore">Indore</option>
+            <option value="bhopal">Bhopal</option>
+            <option value="coimbatore">Coimbatore</option>
+            <option value="visakhapatnam">Visakhapatnam</option>
+            <option value="varanasi">Varanasi</option>
+        </select>
+
+
+        <h3>Select Your Class</h3>
+
+        <label for="class11">
+            <input type="radio" value="Class 11" name="class" id="class11">
+            Class 11
+        </label>
+
+        <br>
+
+        <label for="class12">
+            <input type="radio" value="Class 12" name="class" id="class12">
+            Class 12
+        </label>
+
+        <h3>Select Your Subjects</h3>
+
+        <label for="maths">
+            <input type="checkbox" value="Maths" name="subjects[]" id="maths">
+            Maths
+        </label>
+
+        <label for="physics">
+            <input type="checkbox" value="Physics" name="subjects[]" id="physics">
+            Physics
+        </label>
+
+        <label for="chemistry">
+            <input type="checkbox" value="Chemistry" name="subjects[]" id="chemistry">
+            Chemistry
+        </label>
+
+        <label for="cs">
+            <input type="checkbox" value="Computer Science" name="subjects[]" id="cs">
+            Computer Science
+        </label>
+
+         <label for="accountancy">
+            <input type="checkbox" value="Accountancy" name="subjects[]" id="accountancy">
+            Accountancy
+        </label>
+
+         <label for="economics">
+            <input type="checkbox" value="Economics" name="subjects[]" id="economics">
+            Economics
+        </label>
+
+         <label for="marketing">
+            <input type="checkbox" value="Marketing" name="subjects[]" id="marketing">
+            Marketing
+        </label>
+
+         <label for="usinessstudeies">
+            <input type="checkbox" value="Business Studies" name="subjects[]" id="businessstudies">
+            Business Studies
+        </label>
+
+         <label for="PhysicalEducation">
+            <input type="checkbox" value="Physical Education" name="subjects[]" id="physical">
+            Physical Education
+        </label>
+
+        <label for="english">
+            <input type="checkbox" value="English" name="subjects[]" id="english">
+            English
+        </label>
+
+        <br><br>
+
+        <label for="percentage">Percentage:</label>
+        <input type="text" id="percentage" name="percentage" placeholder="Percentage In Finals">
+        <br><br>
+
+        <h3>Feedback</h3>
+
+        <textarea name="Comments" rows="5" cols="40"
+            placeholder="Any comments or feedback?"></textarea>
+
+        <br><br>
+
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>
